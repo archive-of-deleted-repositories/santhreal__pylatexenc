@@ -301,6 +301,9 @@ class VerbatimArgsParser(MacroStandardArgsParser):
             return (argd, pos_start, endpos+1-pos_start) # include delimiters in pos/len
 
         if self.verbatim_arg_type == 'verb-macro':
+            # \verb*: star must immediately follow the control sequence
+            if pos < len(w.s) and w.s[pos] == '*':
+                pos += 1
             # read the next nonwhitespace char. This is the delimiter of the
             # argument
             while w.s[pos].isspace():

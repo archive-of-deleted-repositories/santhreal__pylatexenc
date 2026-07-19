@@ -1100,6 +1100,18 @@ This is it."""
             167)
         )
 
+    def test_verb_star(self):
+        latextext = r'before \verb*|a b| after'
+        lw = LatexWalker(latextext)
+        parsing_state = lw.make_parsing_state()
+        nodes, _, _ = lw.get_latex_nodes(pos=0, parsing_state=parsing_state)
+        self.assertEqual(len(nodes), 3)
+        self.assertEqual(nodes[0].chars, 'before ')
+        self.assertEqual(nodes[1].macroname, 'verb')
+        self.assertEqual(nodes[1].nodeargd.verbatim_text, 'a b')
+        self.assertEqual(nodes[1].nodeargd.verbatim_delimiters, ('|', '|'))
+        self.assertEqual(nodes[2].chars, ' after')
+
     def test_verbatim_via_specials(self):
 
         latextext = r"""

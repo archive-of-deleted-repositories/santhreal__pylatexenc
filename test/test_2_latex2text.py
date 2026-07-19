@@ -543,6 +543,20 @@ above. """
     #
 
 
+    def test_verb_star(self):
+        self.assertEqual(
+            LatexNodes2Text().latex_to_text(r'before \verb*|hello| after'),
+            'before  after',
+        )
+        self.assertEqual(
+            LatexNodes2Text().latex_to_text(r'\verb*+x+'),
+            '',
+        )
+        self.assertEqual(
+            LatexNodes2Text().latex_to_text(r'before \verb|hello| after'),
+            'before  after',
+        )
+
     def test_repl_item(self):
 
         # exact replacement text may change in the future (e.g. within
